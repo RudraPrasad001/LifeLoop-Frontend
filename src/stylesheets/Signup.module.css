@@ -1,0 +1,132 @@
+/* General styles for the container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1e1e1e;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+  }
+  
+  /* Styles for the signup form */
+  .signupForm {
+    width: 100%;
+    max-width: 400px;
+    background: linear-gradient(145deg, #6e7bff, #3b4ffa);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transform: scale(1);
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+    color: white;
+    text-align: center;
+  }
+  
+  .signupForm:hover {
+    transform: scale(1.05);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Form title styles */
+  .formTitle {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Input group styling */
+  .inputGroup {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .label {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+  }
+  
+  .input {
+    padding: 10px;
+    width: 90%;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1rem;
+    color: #333;
+    transition: all 0.3s ease;
+    background-color: #fff;
+  }
+  
+  .input:focus {
+    border: 2px solid #3b4ffa;
+    box-shadow: 0 0 8px rgba(59, 79, 250, 0.5);
+  }
+  
+  /* Submit button styling */
+  .submitBtn {
+    background-color: #3b4ffa;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitBtn:hover {
+    background-color: #6e7bff;
+  }
+  
+  /* Response message */
+  .responseMessage {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-top: 10px;
+  }
+  
+  /* Link to home */
+  .homeLink {
+    display: block;
+    margin-top: 20px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .homeLink:hover {
+    color: #6e7bff;
+  }
+  
+  /* Cursor trail animation */
+  body {
+    margin: 0px;
+  }
+  
+  .trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background-color: rgba(59, 79, 250, 0.7);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: trailAnimation 0.5s ease-out infinite;
+  }
+  
+  @keyframes trailAnimation {
+    0% {
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 0;
+    }
+  }
+  
