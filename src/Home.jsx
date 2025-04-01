@@ -41,7 +41,7 @@ function Home() {
     const decoded = decodeTokenManually(token);
     setDecoded(decoded.payload);}
     
-  }
+  },[]
   );
     
   if(isAuth){
