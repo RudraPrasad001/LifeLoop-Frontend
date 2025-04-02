@@ -58,6 +58,10 @@ const FileUpload = () => {
       setRes("Please enter the caption.");
       return;
     }
+    if (!tag) {
+      setRes("Please enter the tag.");
+      return;
+    }
 
     setLoading(true);
 
@@ -109,6 +113,7 @@ const FileUpload = () => {
         <option value="animal">Animal</option>
         <option value="food">Food</option>
         <option value="gaming">Gaming</option>
+        <option value="tech">Tech</option>
       </select>
       
       <button

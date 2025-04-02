@@ -62,7 +62,25 @@ function Home() {
     
   },[]
   );
-    
+  const handleLike = async (post) => {
+    try {
+      const response = await axios.put("http://localhost:3001/upload/updateLikes", {
+        user: decoded.name,
+        caption: post.caption,
+      });
+  
+      if (response.data.likes) { // Ensure response has updated likes
+        setPosts((prevPosts) =>
+          prevPosts.map((p) =>
+            p.caption === post.caption ? { ...p, likes: response.data.likes } : p
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Error updating like:", error);
+    }
+  };
+  
   if(isAuth){
     return(
     <div className={styles.container}>
@@ -74,6 +92,8 @@ function Home() {
         <p className={styles.postCaption}>{post.caption}</p>
         <img className={styles.postImage} src={post.imageUrl}></img>
         <p className={styles.postUser}>by {post.userId}</p>
+        <p className={styles.tag}>Tag:{post.tags}</p>
+        <button className={styles.like} onClick={()=>handleLike(post)}>Likes:{post.likes.length}</button>
       </div>)}
 
       </div>
