@@ -59,6 +59,7 @@ function Login() {
           Submit
         </button>
         <p className={styles.responseMessage}>{res}</p>
+        <p>Do not have an account?</p> <Link to="/signup">Register Now</Link>
         {isLog && <Link to="/" className={styles.homeLink}>Go to Home Page</Link>}
       </form>
     </div>

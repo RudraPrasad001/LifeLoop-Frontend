@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
 import Cookies from 'js-cookie'
-import Login from './Login';
 import { useNavigate } from "react-router-dom";
 
 const FileUpload = () => {
@@ -16,13 +15,10 @@ const FileUpload = () => {
         throw new Error('Invalid Token Format!');
       }
   
-      // Decode Header
       const header = JSON.parse(atob(parts[0]));
   
-      // Decode Payload
       const payload = JSON.parse(atob(parts[1]));
   
-      // Signature
       const signature = parts[2];
       return { header, payload, signature };
     } catch (error) {
@@ -36,6 +32,7 @@ const FileUpload = () => {
   const [loading, setLoading] = useState(false);
   const [res,setRes] = useState();
   const [caption,setCaption] = useState();
+  const [tag,setTag] =  useState();
   
   const navigate = useNavigate();
 
@@ -46,6 +43,11 @@ const FileUpload = () => {
   const handleCaptionChange = (e) => {
     setCaption(e.target.value);
   };
+  
+  const handleTagChange = (e) => {
+    setTag(e.target.value);
+  };
+
 
   const handleUpload = async () => {
     if (!file) {
@@ -63,6 +65,7 @@ const FileUpload = () => {
     formData.append("image", file);
     formData.append("userId",decoded.name);
     formData.append("caption",caption);
+    formData.append("tag",tag);
 
     try {
       const res = await axios.post("http://localhost:3001/upload", formData, {
@@ -96,8 +99,18 @@ const FileUpload = () => {
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h2>Upload Image to Cloudinary</h2>
+      <p>Picture:</p>
       <input type="file" onChange={handleFileChange} />
+      <p>Caption:</p>
       <input type="text" onChange={handleCaptionChange} />
+      <p>Tags</p>
+      <select onChange={handleTagChange}>
+        <option value="nature">Nature</option>
+        <option value="animal">Animal</option>
+        <option value="food">Food</option>
+        <option value="gaming">Gaming</option>
+      </select>
+      
       <button
         onClick={handleUpload}
         disabled={loading}
