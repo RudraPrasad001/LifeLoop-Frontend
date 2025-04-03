@@ -1,19 +1,90 @@
 .container{
     visibility:visible;
 }
+body{
+    margin: 0px;
+}
 .posts{
-    
+    text-align: center;
     margin:10px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+}   
+.comment{
+    visibility: visible;
 }
+
+.postInfo{
+    height: 350px;
+    width: 350px;
+    text-align: center;
+    background-color: #151922;
+    padding: 50px;
+    margin-right: 50px;
+}
+
+.commentHeader{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.commentBox{
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+.commentUserId{
+    text-decoration: underline;
+}
+
+.commentSection{
+    height: 350px;
+    width: 350px;
+    text-align: center;
+    background-color: #151922;
+    padding: 50px;
+}
+.postInfoDiv{
+    position:absolute;
+    z-index: 2;
+    background-color: rgba(51, 51, 51, 0.305);
+    display: flex;
+    justify-content: center;
+    top:0vh;
+    left:0vw;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+.tagInfo{
+    color: #F8FbF8;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 100;
+}
+.postImageInfo{
+
+    height: 150px;
+}
+.postUserInfo{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    visibility:visible;
+    
+color: #F8FbF8;
+}
+
+.postCaptionInfo{
+    color: #F8FbF8;
+    }
+
 .postContainer{
     background-color: #151922;
-
     margin:10px;
+    
+    padding: 6px;
 }
 .post{
-    visibility:visible;
 }
 .tag{
     color: #F8FbF8;

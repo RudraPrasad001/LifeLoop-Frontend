@@ -8,6 +8,10 @@ function Home() {
   const[isAuth,setAuth] = useState(true);
   const[decoded,setDecoded]=useState({});
   const [posts,setPosts] = useState();
+  const [currPost,setCurrPost] = useState();
+  const [comment,setComment] = useState();
+  const [currLikes,setLikes]= useState();
+  const[comments,setComments]= useState();
   const navigate = useNavigate();
   const decodeTokenManually = (token) => {
     try {
@@ -31,6 +35,14 @@ function Home() {
       return null;
     }
   };
+
+  const handleCommentChange=(e)=>{
+    if(e.target.value.length!=0){
+      setComment(e.target.value);
+      
+    console.log(e.target.value);
+    }
+  }
   
   const getPosts = async()=>{
     try{
@@ -69,18 +81,49 @@ function Home() {
         caption: post.caption,
       });
   
-      if (response.data.likes) { // Ensure response has updated likes
+      if (response.data.likes) {
         setPosts((prevPosts) =>
           prevPosts.map((p) =>
             p.caption === post.caption ? { ...p, likes: response.data.likes } : p
           )
         );
+        setLikes(response.data.likes.length);
       }
     } catch (error) {
       console.error("Error updating like:", error);
     }
   };
+  const openPost= (post)=>{
+    setCurrPost(post);
+    console.log(post.comments.length);
+    setComments(post.comments);
+  }
   
+  const removeCurrentUser = ()=>{
+    setCurrPost(null);
+  }
+  const handleCommentPost = async()=>{
+    let user = decoded.name;
+    let caption = currPost.caption;
+    console.log(`${user} commented "${comment}" on post "${caption}"`);
+    document.getElementById('comment').value='';
+    
+    const res = await axios.put("http://localhost:3001/upload/updateComments",{
+      comment:comment,
+      caption:caption,
+      user:user,
+    });
+
+    if(res){
+      setComments(res.comments);
+    }
+
+
+
+    setComment();
+    window.location.reload();
+  }
+
   if(isAuth){
     return(
     <div className={styles.container}>
@@ -88,15 +131,42 @@ function Home() {
       <Link to="/upload"><button>Upload</button></Link>
       <div className={styles.posts}>
 
-      {posts && posts.map((post,index)=><div key={index} className={styles.postContainer}>
+      {posts && posts.map((post,index)=><div key={index} className={styles.postContainer} >
         <p className={styles.postCaption}>{post.caption}</p>
-        <img className={styles.postImage} src={post.imageUrl}></img>
+        <img className={styles.postImage} src={post.imageUrl} onClick={()=>openPost(post)}></img>
         <p className={styles.postUser}>by {post.userId}</p>
         <p className={styles.tag}>Tag:{post.tags}</p>
         <button className={styles.like} onClick={()=>handleLike(post)}>Likes:{post.likes.length}</button>
+        <button onClick={()=>openPost(post)} className={styles.comment}>Comment</button>
       </div>)}
 
       </div>
+      
+      {currPost &&  
+      <div className={styles.postInfoDiv}>
+        <div className={styles.postInfo}>
+            <p className={styles.postCaptionInfo}>{currPost.caption}</p>
+            <button className={styles.closeButton} onClick={removeCurrentUser}>close</button>
+            <br />
+            <img className={styles.postImageInfo} src={currPost.imageUrl}></img>
+            <p className={styles.postUserInfo}>by {currPost.userId}</p>
+            <p className={styles.tagInfo}>Tag:{currPost.tags}</p>
+            <br />
+            <button className={styles.like} onClick={()=>handleLike(currPost)}>Likes:{currLikes}</button>
+         </div> 
+         <div className={styles.commentSection}>
+                <p className={styles.commentHeader}>Comments</p>
+            <input type="text" name="comment" id="comment" onChange={handleCommentChange} />
+            <button onClick={handleCommentPost}>Send</button>
+            {comments && comments.map((comment,index)=><div key={index} className={styles.commentBox}>
+              <p className={styles.commentUserId}>{comment.userId}</p>
+              <p className={styles.commentText}>{comment.text}</p>
+              </div>
+              )}
+            <br />
+          </div>
+      </div>
+      }
     </div>
 
     );
