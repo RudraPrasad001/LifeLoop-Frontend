@@ -1,132 +1,115 @@
-/* General styles for the container */
+
+
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #1e1e1e;
-    font-family: 'Roboto', sans-serif;
-    position: relative;
-  }
-  
-  /* Styles for the signup form */
-  .signupForm {
-    width: 100%;
-    max-width: 400px;
-    background: linear-gradient(145deg, #6e7bff, #3b4ffa);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    transform: scale(1);
-    transition: transform 0.4s ease, box-shadow 0.3s ease;
-    color: white;
-    text-align: center;
-  }
-  
-  .signupForm:hover {
-    transform: scale(1.05);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Form title styles */
-  .formTitle {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #fff;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-  }
-  
-  /* Input group styling */
-  .inputGroup {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .label {
-    margin-bottom: 8px;
-    font-size: 1.1rem;
-  }
-  
-  .input {
-    padding: 10px;
-    width: 90%;
-    border: none;
-    border-radius: 10px;
-    outline: none;
-    font-size: 1rem;
-    color: #333;
-    transition: all 0.3s ease;
-    background-color: #fff;
-  }
-  
-  .input:focus {
-    border: 2px solid #3b4ffa;
-    box-shadow: 0 0 8px rgba(59, 79, 250, 0.5);
-  }
-  
-  /* Submit button styling */
-  .submitBtn {
-    background-color: #3b4ffa;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 25px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submitBtn:hover {
-    background-color: #6e7bff;
-  }
-  
-  /* Response message */
-  .responseMessage {
-    font-size: 1rem;
-    color: #ffffff;
-    margin-top: 10px;
-  }
-  
-  /* Link to home */
-  .homeLink {
-    display: block;
-    margin-top: 20px;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-  }
-  
-  .homeLink:hover {
-    color: #6e7bff;
-  }
-  
-  /* Cursor trail animation */
-  body {
-    margin: 0px;
-  }
-  
-  .trail {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background-color: rgba(59, 79, 250, 0.7);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: trailAnimation 0.5s ease-out infinite;
-  }
-  
-  @keyframes trailAnimation {
-    0% {
-      transform: translate(-50%, -50%) scale(0.8);
-      opacity: 1;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(1.5);
-      opacity: 0;
-    }
-  }
-  
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, #1a1a1a, #000);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+}
+
+.signupForm {
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 20px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 2 rem;
+  transition: all 0.3s ease;
+}
+
+.signupForm:hover {
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.08);
+}
+
+.formTitle {
+  text-align: center;
+  font-size: 2rem;
+  color: #f0f0f0;
+  letter-spacing: 2px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9 rem;
+}
+
+.label {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  color: #ccc;
+}
+
+.input {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #333;
+  background-color: #222;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 10px #4a90e2;
+}
+
+.submitBtn {
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  color: #fff;
+  padding: 0.8rem;
+  border: none;
+  margin-top: 10px;
+  border-radius: 14px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.submitBtn:hover {
+  transform: scale(1.05);
+}
+
+.responseMessage {
+  text-align: center;
+  color: #ff4b2b;
+  font-weight: 600;
+}
+
+.homeLink {
+  display: block;
+  margin-top: 1rem;
+  text-align: center;
+  color: #4a90e2;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.homeLink:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+a {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #fff;
+}
+body{
+  margin: 0;
+}

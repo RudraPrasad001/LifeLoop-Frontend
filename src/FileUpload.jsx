@@ -1,142 +1,120 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Cookies from 'js-cookie'
-import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
+import { Link, useNavigate } from "react-router-dom";
+import styles from "./stylesheets/FileUpload.module.css";
 
 const FileUpload = () => {
+  const [decoded, setDecoded] = useState();
+  const [file, setFile] = useState(null);
+  const [uploadUrl, setUploadUrl] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [res, setRes] = useState();
+  const [caption, setCaption] = useState("");
+  const [tag, setTag] = useState("");
+  const navigate = useNavigate();
 
-  const [decoded,setDecoded] = useState();
+  const handleFileChange =(e)=>{
+    setFile(e.target.files[0]);
+  }
 
   const decodeTokenManually = (token) => {
     try {
       const parts = token.split('.');
-  
-      if (parts.length !== 3) {
-        throw new Error('Invalid Token Format!');
-      }
-  
-      const header = JSON.parse(atob(parts[0]));
-  
+      if (parts.length !== 3) throw new Error('Invalid Token Format!');
       const payload = JSON.parse(atob(parts[1]));
-  
-      const signature = parts[2];
-      return { header, payload, signature };
+      return { payload };
     } catch (error) {
       console.log('Error decoding token:', error.message);
       return null;
     }
   };
 
-  const [file, setFile] = useState(null);
-  const [uploadUrl, setUploadUrl] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [res,setRes] = useState();
-  const [caption,setCaption] = useState();
-  const [tag,setTag] =  useState();
-  
-  const navigate = useNavigate();
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const handleCaptionChange = (e) => {
-    setCaption(e.target.value);
-  };
-  
-  const handleTagChange = (e) => {
-    setTag(e.target.value);
-  };
-
-
   const handleUpload = async () => {
-    if (!file) {
-      setRes("Please select a file first.");
-      return;
-    }
-    if (!caption) {
-      setRes("Please enter the caption.");
-      return;
-    }
-    if (!tag) {
-      setRes("Please enter the tag.");
+    if (!file || !caption || !tag) {
+      setRes("Please fill out all fields.");
       return;
     }
 
     setLoading(true);
-
     const formData = new FormData();
     formData.append("image", file);
-    formData.append("userId",decoded.name);
-    formData.append("caption",caption);
-    formData.append("tag",tag);
+    formData.append("userId", decoded.name);
+    formData.append("caption", caption);
+    formData.append("tag", tag);
 
     try {
       const res = await axios.post("http://localhost:3001/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
-
       setUploadUrl(res.data.url);
-      setRes("File uploaded successfully!");
+      setRes("Posted successfully!");
     } catch (error) {
       console.error("Error uploading file:", error);
-      setRes("Failed to upload file. Please try again.");
+      setRes("Failed to post.Please try again later");
     } finally {
       setLoading(false);
     }
   };
+
   useEffect(() => {
-      const token = Cookies.get('token');
-      if(!token){
-        navigate('/login');
-      }else{
-      const decoded = decodeTokenManually(token);
-      setDecoded(decoded.payload);
-        console.log(decoded);
-    }
-      
-    },[]
-    );
-    if(decoded){
+    const token = Cookies.get('token');
+    if (!token) return navigate('/login');
+    const decoded = decodeTokenManually(token);
+    if (!decoded) return navigate('/login');
+    setDecoded(decoded.payload);
+  }, [navigate]);
+
+  if (!decoded) return null;
+
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h2>Upload Image to Cloudinary</h2>
-      <p>Picture:</p>
-      <input type="file" onChange={handleFileChange} />
-      <p>Caption:</p>
-      <input type="text" onChange={handleCaptionChange} />
-      <p>Tags</p>
-      <select onChange={handleTagChange}>
-        <option value="nature">Nature</option>
-        <option value="animal">Animal</option>
-        <option value="food">Food</option>
-        <option value="gaming">Gaming</option>
-        <option value="tech">Tech</option>
-      </select>
-      
-      <button
-        onClick={handleUpload}
-        disabled={loading}
-       
-      >
-        {loading ? "Uploading..." : "Upload"}
-      </button>
-        <p>{res}</p>
-      {uploadUrl && (
-        <div>
-          <p>✅ File Uploaded Successfully!</p>
-          <a href={uploadUrl} target="_blank" rel="noopener noreferrer">
-            View Uploaded Image
-          </a>
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h2 className={styles.title}>Upload Image</h2>
+        <div className={styles.uploadIconWrapper}>
+          {file==null &&
+          <>
+          <label htmlFor="file-upload" className={styles.uploadLabel}>+</label> 
+          <input
+            id="file-upload"
+            type="file"
+            onChange={handleFileChange}
+            className={styles.hiddenFileInput}
+          />
+          </>
+          }
+          {file && <>
+          <label htmlFor="file-upload" className={styles.uploadLabelPreview}><img src={URL.createObjectURL(file)} alt="preview" className={styles.previewImage} /></label> 
+          <input
+            id="file-upload"
+            type="file"
+            onChange={handleFileChange}
+            className={styles.overClickInput}
+          /></>}
+
         </div>
-      )}
+
+        <input type="text" placeholder="Caption" value={caption} onChange={(e) => setCaption(e.target.value)} className={styles.input} />
+        <select value={tag} onChange={(e) => setTag(e.target.value)} className={styles.input}>
+          <option value="">Select Tag</option>
+          <option value="nature">Nature</option>
+          <option value="animal">Animal</option>
+          <option value="food">Food</option>
+          <option value="gaming">Gaming</option>
+          <option value="tech">Tech</option>
+          <option value="people">People</option>
+          <option value="entertainment">Entertainment</option>
+        </select>
+        <button onClick={handleUpload} disabled={loading} className={styles.uploadBtn}>
+          {loading ? "Uploading..." : "Upload"}
+        </button>
+        {res && <><p className={styles.message}>{res}</p>
+          <Link className={styles.gotoHome} to="/">Home</Link></>
+        }
+       
+      </div>
     </div>
-  );}
-  else{
-   navigate("/login")
-  }
+  );
 };
 
 export default FileUpload;

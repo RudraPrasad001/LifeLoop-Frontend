@@ -56,7 +56,7 @@ function Signup() {
             />
           </div>
           <div className={styles.inputGroup}>
-            <label htmlFor="password" className="label">Password:</label>
+            <label htmlFor="password" className={styles.label}>Password:</label>
             <input
               type="password"
               id="password"
@@ -64,8 +64,9 @@ function Signup() {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
-          </div>
+            
           <input type="submit" value="Submit Now" className={styles.submitBtn} />
+          </div>
         </form>
         <p className="responseMessage">{res}</p>
         <a href="/login" className={styles.homeLink}>Already have an account? Login here</a>

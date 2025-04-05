@@ -1,0 +1,151 @@
+.container {
+    background-color: #121212;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+  
+  .card {
+    background: #1e1e1e;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .input {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 12px;
+    background-color: #2a2a2a;
+    color: #fff;
+    outline: none;
+    transition: background 0.3s ease;
+  }
+  
+  .input:hover, .input:focus {
+    background-color: #333;
+  }
+  
+  .uploadBtn {
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .uploadBtn:hover {
+    background-color: #00acc1;
+  }
+  
+  .message {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #80cbc4;
+  }
+  
+  .successBox {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .link {
+    color: #4dd0e1;
+    text-decoration: underline;
+    margin-top: 0.5rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .uploadIconWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .uploadLabel {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #2a2a2a;
+    color: #00bcd4;
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 2px dashed #00bcd4;
+    transition: all 0.3s ease;
+  }
+  
+  .uploadLabel:hover {
+    background-color: #333;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #00bcd4;
+  }
+  .uploadLabelPreview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #2a2a2a;
+    color: #00bcd4;
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 89px;
+    cursor: pointer;
+    border: 2px dashed #00bcd4;
+    transition: all 0.3s ease;
+  }
+  
+  .uploadLabelPreview:hover {
+    background-color: #333;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #00bcd4;
+  }
+  
+  .hiddenFileInput {
+    display: none;
+  }
+  .overClickInput{
+    position: absolute;
+    display: none;
+    height: 250px;
+    cursor: pointer;
+   }
+
+   .gotoHome{
+    text-align: center;
+   }
+
+  .previewImage {
+    width: 270px;
+    height: 280px;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    background-color:#121212;
+    object-fit: contain;
+    border: 2px solid #00bcd4;
+    box-shadow: 0 0 10px #00bcd4;
+  }
+  
+  

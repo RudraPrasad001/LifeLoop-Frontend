@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./stylesheets/Login.module.css";
 
 function Login() {
@@ -9,6 +9,7 @@ function Login() {
   const [res, setRes] = useState("");
   const [isLog, setLog] = useState(false);
   axios.defaults.withCredentials = true;
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +21,7 @@ function Login() {
       setRes(response.data.message);
       if(response.data.isLogged){
         setLog(true);
+        setTimeout(2000,navigate("/"));
       }
     } catch (e) {
       setLog(false);
@@ -59,8 +61,7 @@ function Login() {
           Submit
         </button>
         <p className={styles.responseMessage}>{res}</p>
-        <p>Do not have an account?</p> <Link to="/signup">Register Now</Link>
-        {isLog && <Link to="/" className={styles.homeLink}>Go to Home Page</Link>}
+        <a href="/signup" className={styles.homeLink}>Do not have an account? Signup here</a>
       </form>
     </div>
   );

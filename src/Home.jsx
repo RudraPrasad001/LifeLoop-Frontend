@@ -97,6 +97,7 @@ function Home() {
     setCurrPost(post);
     console.log(post.comments.length);
     setComments(post.comments);
+    setLikes(post.liks.length);
   }
   
   const removeCurrentUser = ()=>{
@@ -123,10 +124,22 @@ function Home() {
     setComment();
     window.location.reload();
   }
+  const logout = ()=>{
+    Cookies.remove('token');
+    window.location.reload();
+  }
 
   if(isAuth){
     return(
     <div className={styles.container}>
+      <div className={styles.titleLogout}>
+        <div className={styles.title}>  
+          <h1>Lifeloop</h1>
+        </div>
+        <div className={styles.logoutDiv}>
+          <button className={styles.like} onClick={logout}>Logout</button>
+        </div>
+        </div>
       <p>welcome {decoded.name}</p>
       <Link to="/upload"><button>Upload</button></Link>
       <div className={styles.posts}>
@@ -136,8 +149,8 @@ function Home() {
         <img className={styles.postImage} src={post.imageUrl} onClick={()=>openPost(post)}></img>
         <p className={styles.postUser}>by {post.userId}</p>
         <p className={styles.tag}>Tag:{post.tags}</p>
-        <button className={styles.like} onClick={()=>handleLike(post)}>Likes:{post.likes.length}</button>
-        <button onClick={()=>openPost(post)} className={styles.comment}>Comment</button>
+        <button className={styles.like} onClick={()=>handleLike(post)}>♡ {post.likes.length}</button>
+        <button onClick={()=>openPost(post)} className={styles.like}>Comment</button>
       </div>)}
 
       </div>
@@ -145,19 +158,22 @@ function Home() {
       {currPost &&  
       <div className={styles.postInfoDiv}>
         <div className={styles.postInfo}>
+            <div className={styles.postHeaders}>
             <p className={styles.postCaptionInfo}>{currPost.caption}</p>
-            <button className={styles.closeButton} onClick={removeCurrentUser}>close</button>
+            <button className={styles.closeButton} onClick={removeCurrentUser}>close</button></div>
             <br />
             <img className={styles.postImageInfo} src={currPost.imageUrl}></img>
             <p className={styles.postUserInfo}>by {currPost.userId}</p>
             <p className={styles.tagInfo}>Tag:{currPost.tags}</p>
             <br />
-            <button className={styles.like} onClick={()=>handleLike(currPost)}>Likes:{currLikes}</button>
+            <button className={styles.like} onClick={()=>handleLike(currPost)}>♡ {currLikes}</button>
          </div> 
          <div className={styles.commentSection}>
+          <div className={styles.stickyDiv}>
                 <p className={styles.commentHeader}>Comments</p>
-            <input type="text" name="comment" id="comment" onChange={handleCommentChange} />
+            <input type="text" name="comment" id="comment" className={styles.comment} onChange={handleCommentChange} />
             <button onClick={handleCommentPost}>Send</button>
+            </div>
             {comments && comments.map((comment,index)=><div key={index} className={styles.commentBox}>
               <p className={styles.commentUserId}>{comment.userId}</p>
               <p className={styles.commentText}>{comment.text}</p>
