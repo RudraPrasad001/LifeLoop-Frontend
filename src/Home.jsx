@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import styles from './stylesheets/Home.module.css';
 import { Link } from 'react-router-dom';
+import Post from './Post';
 function Home() {
   const[isAuth,setAuth] = useState(true);
   const[decoded,setDecoded]=useState({});
@@ -93,12 +94,6 @@ function Home() {
       console.error("Error updating like:", error);
     }
   };
-  const openPost= (post)=>{
-    setCurrPost(post);
-    console.log(post.comments.length);
-    setComments(post.comments);
-    setLikes(post.likes.length);
-  }
   
   const removeCurrentUser = ()=>{
     setCurrPost(null);
@@ -133,6 +128,9 @@ function Home() {
     return(
     <div className={styles.container}>
       <div className={styles.titleLogout}>
+        <div className={styles.profileDiv }>
+          <button className={styles.like} >Profile</button>
+        </div>
         <div className={styles.title}>  
           <h1>Lifeloop</h1>
         </div>
@@ -144,15 +142,12 @@ function Home() {
       <Link to="/upload"><button>Upload</button></Link>
       <div className={styles.posts}>
 
-      {posts && posts.map((post,index)=><div key={index} className={styles.postContainer} >
-        <p className={styles.postCaption}>{post.caption}</p>
-        <img className={styles.postImage} src={post.imageUrl} onClick={()=>openPost(post)}></img>
-        <p className={styles.postUser}>by {post.userId}</p>
-        <p className={styles.tag}>Tag:{post.tags}</p>
-        <button className={styles.like} onClick={()=>handleLike(post)}>♡ {post.likes.length}</button>
-        <button onClick={()=>openPost(post)} className={styles.like}>Comment</button>
-      </div>)}
-
+      {posts && posts.map((post,index)=><Post key={index} post={post} 
+        likesSetter={setLikes} 
+        setPosts = {setPosts}
+        decoded = {decoded} 
+        commentSetter = {setComments} 
+      currentPostSetter={setCurrPost} />)}
       </div>
       
       {currPost &&  
