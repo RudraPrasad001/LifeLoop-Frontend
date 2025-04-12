@@ -97,7 +97,7 @@ function Home() {
     setCurrPost(post);
     console.log(post.comments.length);
     setComments(post.comments);
-    setLikes(post.liks.length);
+    setLikes(post.likes.length);
   }
   
   const removeCurrentUser = ()=>{
