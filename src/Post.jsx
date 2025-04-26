@@ -1,4 +1,4 @@
-import styles from './stylesheets/Home.module.css';
+import styles from './stylesheets/Post.module.css';
 import axios from 'axios';
 function Post(props){
 
@@ -19,7 +19,7 @@ function Post(props){
 
       const handleLike = async (post) => {
         try {
-          const response = await axios.put("http://localhost:3001/upload/updateLikes", {
+          const response = await axios.put(`${import.meta.env.VITE_SERVER}/upload/updateLikes`, {
             user: decoded.name,
             caption: post.caption,
           });
@@ -42,7 +42,7 @@ function Post(props){
     return(
         <div className={styles.postContainer}>
             
-                    <p className={styles.postCaption}>{post.caption}</p>
+                    <p className={styles.postCaptionInfo}>{post.caption}</p>
                     <img className={styles.postImage} src={post.imageUrl} onClick={()=>openPost(post)}></img>
                     <p className={styles.postUser}>by {post.userId}</p>
                     <p className={styles.tag}>Tag:{post.tags}</p>

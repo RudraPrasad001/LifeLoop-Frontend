@@ -14,7 +14,7 @@ function Signup() {
     e.preventDefault();
     try {
       let response = await axios.post(
-        "http://localhost:3001/app/signup",
+        `${import.meta.env.VITE_SERVER}/app/signup`,
         { name, userEmail, password },
         { withCredentials: true }
       );

@@ -44,11 +44,13 @@ const FileUpload = () => {
     formData.append("tag", tag);
 
     try {
-      const res = await axios.post("http://localhost:3001/upload", formData, {
+      const res = await axios.post(`${import.meta.env.VITE_SERVER}/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setUploadUrl(res.data.url);
       setRes("Posted successfully!");
+      setCaption("");
+      setTag("");
     } catch (error) {
       console.error("Error uploading file:", error);
       setRes("Failed to post.Please try again later");

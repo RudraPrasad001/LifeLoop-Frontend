@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./stylesheets/Login.module.css";
-
 function Login() {
   const [userEmail, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,9 +11,10 @@ function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
     try {
-      let response = await axios.post("http://localhost:3001/app/login", {
+      let response = await axios.post(`${import.meta.env.VITE_SERVER}/app/login`, {
         userEmail,
         password,
       });

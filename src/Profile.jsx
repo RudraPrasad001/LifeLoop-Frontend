@@ -1,14 +1,12 @@
-import React, { useState,useEffect} from 'react';
-import Cookies from 'js-cookie';
-import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
-import styles from './stylesheets/Home.module.css';
-import { Link } from 'react-router-dom';
-import { configDotenv } from 'dotenv';
-import Post from './Post';
-function Home() {
-
-  const[isAuth,setAuth] = useState(true);
+import { useParams,useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import styles from "./stylesheets/Profile.module.css";
+import Cookies from "js-cookie";
+import Post from "./Post";
+import { Link } from "react-router-dom";
+function Profile(){
+    const[isAuth,setAuth] = useState(true);
   const[decoded,setDecoded]=useState({});
   const [posts,setPosts] = useState();
   const [currPost,setCurrPost] = useState();
@@ -72,6 +70,9 @@ function Home() {
     const decoded = decodeTokenManually(token);
     setDecoded(decoded.payload);
     getPosts();
+    
+    setPost();
+    console.log("TRUING");
   }
 
     
@@ -121,28 +122,20 @@ function Home() {
     setComment();
     window.location.reload();
   }
-  const logout = ()=>{
-    Cookies.remove('token');
-    window.location.reload();
-  }
-
-  if(isAuth){
+    
+    let {id} = useParams();
+    const setPost = async()=>{
+        console.log("Trying to get profile posts");
+        const post = await axios.get(`${import.meta.env.VITE_SERVER}/profile/${id}`);
+        setPosts(post.data);
+    }
     return(
-    <div className={styles.container}>
-      <div className={styles.titleLogout}>
-        <div className={styles.profileDiv }>
-          <button onClick={()=>navigate(`/user/${decoded.name}`)} className={styles.like} >Profile</button>
-        </div>
-        <div className={styles.title}>  
-          <h1>Lifeloop</h1>
-        </div>
-        <div className={styles.logoutDiv}>
-          <button className={styles.like} onClick={logout}>Logout</button>
-        </div>
-        </div>
-      <p>welcome {decoded.name}</p>
-      <Link to="/upload"><button>Upload</button></Link>
-      <div className={styles.posts}>
+    <div className={styles.profilePage}>
+    <div className={styles.profileContainer}>
+        <p>{id}</p>
+        <Link  to="/"> <button className={styles}>Home</button></Link>
+    </div>        
+    <div className={styles.posts}>
 
       {posts && posts.map((post,index)=><Post key={index} post={post} 
         likesSetter={setLikes} 
@@ -150,7 +143,6 @@ function Home() {
         decoded = {decoded} 
         commentSetter = {setComments} 
       currentPostSetter={setCurrPost} />)}
-      </div>
       
       {currPost &&  
       <div className={styles.postInfoDiv}>
@@ -160,9 +152,7 @@ function Home() {
             <button className={styles.closeButton} onClick={removeCurrentUser}>close</button></div>
             <br />
             <img className={styles.postImageInfo} src={currPost.imageUrl}></img>
-            <p className={styles.postUserInfo}>by <button onClick={()=>{
-              navigate(`/user/${currPost.userId}`)
-            }}> {currPost.userId}</button></p>
+            <p className={styles.postUserInfo}>by {currPost.userId}</p>
             <p className={styles.tagInfo}>Tag:{currPost.tags}</p>
             <br />
             <button className={styles.like} onClick={()=>handleLike(currPost)}>♡ {currLikes}</button>
@@ -184,10 +174,7 @@ function Home() {
       }
     </div>
 
-    );
-  }
-  else{
-    return(<div><p>You are not authorized</p></div>);
-  }
+    </div>
+);
 }
-export default Home;
+export default Profile;
