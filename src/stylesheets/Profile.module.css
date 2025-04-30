@@ -8,7 +8,19 @@
     flex-direction: column;
     align-items: center;
   }
-  
+  .followButton{
+    align-items: center;
+    width: 20vb;
+  }
+  .idAndHome{
+    display: flex;
+    flex-direction: row;
+  }
+  .idAndName{
+    display: flex;
+    gap:20px;
+    flex-direction: row;
+  }
   /* Profile Info Section */
   .profileContainer {
     width: 100%;

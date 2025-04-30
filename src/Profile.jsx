@@ -8,11 +8,14 @@ import { Link } from "react-router-dom";
 function Profile(){
     const[isAuth,setAuth] = useState(true);
   const[decoded,setDecoded]=useState({});
+  const[currUser,setCurrUser] = useState();
   const [posts,setPosts] = useState();
   const [currPost,setCurrPost] = useState();
   const [comment,setComment] = useState();
+  const [sameUser,setSameUser] =useState(false);
   const [currLikes,setLikes]= useState();
   const[comments,setComments]= useState();
+  let {id} = useParams();
   const navigate = useNavigate();
   const decodeTokenManually = (token) => {
     try {
@@ -59,7 +62,17 @@ function Profile(){
       console.log(e);
     }
   } 
-  
+  const getUser = async(id)=>{
+    try{
+      const user = await axios.get(`${import.meta.env.VITE_SERVER}/app/user/${id}`);
+      setCurrUser(user.data);
+      console.log("CURENT USER  "+JSON.stringify(user.data));
+      
+    }
+    catch(e){
+      console.log(e);
+    }
+  }
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -69,15 +82,51 @@ function Profile(){
     }else{
     const decoded = decodeTokenManually(token);
     setDecoded(decoded.payload);
-    getPosts();
-    
     setPost();
+    if(decoded.payload.name===id){
+      setSameUser(true);
+      getUser(id);
+      console.log(decoded.payload);
+    }
+    else{
+      
+      setSameUser(false);
+      getUser(id);
+    }
     console.log("TRUING");
-  }
-
-    
+  }    
   },[]
   );
+  useEffect(() => {
+    if (currUser) {
+      console.log("Updated user:", currUser[0]);
+  
+      // Safe check
+      if (Array.isArray(currUser[0].followers)) {
+        console.log("Followers count:", currUser[0].followers.length);
+      } else {
+        console.log("Followers is undefined or not an array.");
+      }
+    }
+  }, [currUser]);
+
+
+  const handleFollowToggle = async () => {
+    try {
+      const response = await axios.put(`${import.meta.env.VITE_SERVER}/app/follow`, {
+        follower: decoded.name,   
+        followee: currUser[0].name,  
+      });
+  
+      if (response.data.updatedUser) {
+        setCurrUser(response.data.updatedUser);
+      }
+      window.location.reload();
+    } catch (error) {
+      console.error("Error toggling follow:", error);
+    }
+  };
+  
   const handleLike = async (post) => {
     try {
       const response = await axios.put(`${import.meta.env.VITE_SERVER}/upload/updateLikes`, {
@@ -123,17 +172,31 @@ function Profile(){
     window.location.reload();
   }
     
-    let {id} = useParams();
     const setPost = async()=>{
         console.log("Trying to get profile posts");
         const post = await axios.get(`${import.meta.env.VITE_SERVER}/profile/${id}`);
         setPosts(post.data);
     }
     return(
+      
     <div className={styles.profilePage}>
-    <div className={styles.profileContainer}>
+    <div className={styles.profileContainer} >
+      
+    <Link  to="/"> <button className={styles}>Home</button></Link>
+        <div className={styles.idAndHome}>
         <p>{id}</p>
-        <Link  to="/"> <button className={styles}>Home</button></Link>
+        {!sameUser && currUser && 
+        <button className={styles.followButton} onClick={handleFollowToggle}>
+    {currUser[0].followers.includes(decoded.name) ? "Unfollow" : "Follow"}
+  </button>}
+      </div>
+        <div className={styles.idAndName}>
+          {currUser && <>
+            <p>Followers: {Array.isArray(currUser[0]?.followers) ? currUser[0].followers.length : 0}</p>
+            <p>Following: {Array.isArray(currUser[0]?.following) ? currUser[0].following.length : 0}</p>
+        </>
+          }
+        </div>
     </div>        
     <div className={styles.posts}>
 
