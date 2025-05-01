@@ -32,6 +32,7 @@ function Home() {
   
       // Signature
       const signature = parts[2];
+      console.log("GOT iT")
       return { header, payload, signature };
     } catch (error) {
       console.log('Error decoding token:', error.message);
@@ -67,7 +68,7 @@ function Home() {
     const token = Cookies.get('token');
     if(!token){
       setAuth(false)
-      navigate("/login");
+      console.log("NO TOKEN")
     }else{
     const decoded = decodeTokenManually(token);
     setDecoded(decoded.payload);
@@ -82,6 +83,7 @@ function Home() {
       const response = await axios.put(`${import.meta.env.VITE_SERVER}/upload/updateLikes`, {
         user: decoded.name,
         caption: post.caption,
+        
       });
   
       if (response.data.likes) {
