@@ -8,6 +8,7 @@ import { configDotenv } from 'dotenv';
 import Post from './Post';
 function Home() {
 
+  axios.defaults.withCredentials = true;
   const[isAuth,setAuth] = useState(true);
   const[decoded,setDecoded]=useState({});
   const [posts,setPosts] = useState();

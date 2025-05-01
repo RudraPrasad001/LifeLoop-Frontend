@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./stylesheets/Login.module.css";
 function Login() {
@@ -21,6 +22,11 @@ function Login() {
       setRes(response.data.message);
       if(response.data.isLogged){
         setLog(true);
+        Cookies.set('token', response.data.token, {
+          expires: 1,         // 1 day
+          sameSite: 'None',    // or 'None' if needed for cross-origin
+          secure: true,       // required in production over HTTPS
+        });
         setTimeout(2000,navigate("/"));
       }
     } catch (e) {
