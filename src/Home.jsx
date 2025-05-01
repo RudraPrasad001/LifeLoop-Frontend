@@ -1,6 +1,6 @@
 import React, { useState,useEffect} from 'react';
 import Cookies from 'js-cookie';
-import {useNavigate} from 'react-router-dom';
+import {redirect, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import styles from './stylesheets/Home.module.css';
 import { Link } from 'react-router-dom';
@@ -68,7 +68,8 @@ function Home() {
     const token = Cookies.get('token');
     if(!token){
       setAuth(false)
-      console.log("NO TOKEN")
+      console.error("NO TOKEN")
+      navigate("/login")
     }else{
     const decoded = decodeTokenManually(token);
     setDecoded(decoded.payload);
