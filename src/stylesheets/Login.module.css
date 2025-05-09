@@ -1,38 +1,46 @@
 
-
+*{
+  
+  
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+}
 .container {
+  
   min-height: 100vh;
-  background: radial-gradient(circle at top left, #1a1a1a, #000);
+  background: radial-gradient(circle at top left, #845f5f, #cf3b28);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
+
+  font-family:Arial, Helvetica, sans-serif;
+  color: #ffffff;
 }
 
 .loginForm {
-  background: #111;
-  border: 1px solid #2a2a2a;
+  background: #000000f5;
+  border: 1px solid #171515;
   border-radius: 20px;
   padding: 3rem;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 20px rgba(106, 102, 102, 0);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap:50px;
   transition: all 0.3s ease;
 }
 
 .loginForm:hover {
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 55px rgba(76, 2, 2, 0.968);
 }
 
 .formTitle {
   text-align: center;
-  font-size: 2rem;
+  font-size: 40px;
   color: #f0f0f0;
-  letter-spacing: 2px;
+  
 }
 
 .inputGroup {
@@ -41,29 +49,61 @@
   gap: 0.5rem;
 }
 
-.label {
-  font-size: 0.9rem;
+.floating {
+  font-size:20px;
   color: #ccc;
+  position:relative;
 }
 
-.input {
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
-  border: 1px solid #333;
-  background-color: #222;
-  color: #fff;
+.input{
+  width: 100%;
+  padding: 1rem 0.75rem 0.25rem 0.75rem;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background: transparent;
+  color: white;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  outline: none;
+  position:relative;
+  
+  
+  
+  
+}
+.label {
+  position: absolute;
+  top: 1rem;
+  left: 0.75rem;
+  color: #ccc;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.2s ease;
 }
 
-.input:focus {
-  outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 10px #4a90e2;
+
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label {
+  top: -0.6rem;         
+  left: 0.6rem;         
+  font-size: 0.75rem;   
+  color: #dee3e9;
+  background-color: #111;
+  padding: 0 0.3rem;
 }
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #111 inset !important;
+  -webkit-text-fill-color: #fff !important;
+  
+}
+
+
+
+
+
 
 .submitBtn {
-  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  background: linear-gradient(left to right, #ff416c, #ff4b2b);
   color: #fff;
   padding: 0.8rem;
   border: none;
@@ -72,6 +112,7 @@
   font-size: 1rem;
   cursor: pointer;
   transition: transform 0.2s ease;
+  
 }
 
 .submitBtn:hover {

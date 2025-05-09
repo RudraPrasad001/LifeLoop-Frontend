@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import styles from "./stylesheets/Login.module.css";
 function Login() {
   const [userEmail, setEmail] = useState("");
@@ -11,7 +11,6 @@ function Login() {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
 
-  //changed
   const handleSubmit = async (e) => {
     
     e.preventDefault();
@@ -33,6 +32,7 @@ function Login() {
     } catch (e) {
       setLog(false);
       setRes("Error");
+      console.log(e);
     }
   };
 
@@ -41,28 +41,37 @@ function Login() {
       <form className={styles.loginForm} onSubmit={handleSubmit}>
         <h2 className={styles.formTitle}>Login</h2>
         <div className={styles.inputGroup}>
-          <label htmlFor="email" className={styles.label}>
-            Email
-          </label>
+          <div className={styles.floating}>
+          
           <input
             type="email"
             name="email"
             id="email"
             className={styles.input}
+            placeholder=""
             onChange={() => setEmail(document.getElementById('email').value)}
           />
+          <label htmlFor="email" className={styles.label}>
+            Email
+          </label>
+          </div>
         </div>
         <div className={styles.inputGroup}>
-          <label htmlFor="password" className={styles.label}>
-            Password
-          </label>
+        <div className={styles.floating}>
+          
+          <i className="pass"></i>
           <input
             type="password"
             name="password"
             id="password"
+            placeholder=""
             className={styles.input}
             onChange={() => setPassword(document.getElementById('password').value)}
           />
+          <label htmlFor="password" className={styles.label}>
+            Password
+          </label>
+          </div>
         </div>
         <button type="submit" className={styles.submitBtn}>
           Submit
