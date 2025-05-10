@@ -41,7 +41,7 @@ function Comment(props){
             console.log(e)
         }
     }
-    useEffect(()=>getLike,[currLikes]);
+    useEffect(()=>getLike,[]);
 
     return(<div className={styles.commentBox}>
               <p className={styles.commentUserId}><Link to={`/user/${comment.userId}`}>@{comment.userId}</Link> <i>{comment.createdAt.toString().substring(0,10)}</i></p>
