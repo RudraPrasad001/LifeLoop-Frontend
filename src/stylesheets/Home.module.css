@@ -146,6 +146,7 @@
     color: #fff;
     overflow-y: auto;
     max-height: 70vh;
+    overflow-x: hidden  ;
     min-height: 70vh;
 
   }
@@ -170,22 +171,31 @@
     align-self: center;
     padding: 0.5rem;
     border-radius: 18px;
+    flex-wrap: wrap;
     border: none;
     outline: none;
     font-size: 0.9rem;
+  }
+  .commentSection::-webkit-scrollbar-thumb {
+    background: #ff416c;
+    border-radius: 10px;
   }
   
   .commentBox {
     background-color: #222;
     padding: 0.7rem 1rem;
+    overflow-x: hidden;
     border-radius: 10px;
     margin-bottom: 0.7rem;
   }
   
   .commentUserId {
+    margin-bottom: 0.3rem;
+  }
+  .commentUserId a{
+
     font-weight: bold;
     color: #ff416c;
-    margin-bottom: 0.3rem;
   }
   
   .commentText {

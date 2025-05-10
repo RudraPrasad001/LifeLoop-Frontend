@@ -106,6 +106,9 @@ const FileUpload = () => {
           <option value="tech">Tech</option>
           <option value="people">People</option>
           <option value="entertainment">Entertainment</option>
+          <option value="anime">Anime</option>
+          <option value="education">Education</option>
+          <option value="Movies & TV Shows">Movies and TV Shoes</option>
         </select>
         <button onClick={handleUpload} disabled={loading} className={styles.uploadBtn}>
           {loading ? "Uploading..." : "Upload"}

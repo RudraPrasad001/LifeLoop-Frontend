@@ -1,5 +1,6 @@
 import styles from './stylesheets/Post.module.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 function Post(props){
 
     const post = props.post;
@@ -43,8 +44,9 @@ function Post(props){
         <div className={styles.postContainer}>
             
                     <p className={styles.postCaptionInfo}>{post.caption}</p>
+                    <p className={styles.created}>Posted at {post.createdAt.toString().substring(0,10)}</p>
                     <img className={styles.postImage} src={post.imageUrl} onClick={()=>openPost(post)}></img>
-                    <p className={styles.postUser}>by {post.userId}</p>
+                    <p className={styles.commentUserId}>by <Link to={`/user/${post.userId}`}>{post.userId}</Link></p>
                     <p className={styles.tag}>Tag:{post.tags}</p>
                     <button className={styles.like} onClick={()=>handleLike(post)}>♡ {post.likes.length}</button>
                     <button onClick={()=>openPost(post)} className={styles.like}>Comment</button>

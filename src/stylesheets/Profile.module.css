@@ -84,10 +84,30 @@
     object-fit: cover;
     background-color: #111;
   }
-  
+  .postInfo{
+    
+    flex: 1 1 320px;
+    max-width: 400px;
+    margin: 1rem;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
   /* Post Modal (no changes needed unless you want smoother effect) */
   .postInfoDiv {
-    background-color: rgba(0, 0, 0, 0.97);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 1.5rem;
   }
   
   /* Close Button */
@@ -107,15 +127,35 @@
   
   /* Comments Section */
   .commentSection {
+    flex: 1 1 250px;
+    max-width: 400px;
     background-color: #111;
-    border-radius: 12px;
-    padding: 1rem;
+    border-radius: 12px ;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: #fff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 70vh;
+    min-height: 70vh;
+
   }
   
+  .commentHeader {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #ff4b2b;
+    font-weight: bold;
+  }
   /* Comment Input */
-  .comment {
-    background-color: #222;
-    color: white;
+    .comment {
+    align-self: center;
+    padding: 0.5rem;
+    border-radius: 18px;
+    border: none;
+    flex-wrap: wrap;
+    outline: none;
+    font-size: 0.9rem;
   }
   
   /* Scrollbar customization (optional for clean look) */
@@ -128,19 +168,32 @@
   }
   
   /* Sticky Comment Bar */
-  .stickyDiv {
-    background-color: #111;
+  .stickyDiv{
+    position: sticky;
+    top: 0px;
+    display: flex;
+    gap: 10px;
+    background-color:#111 ;
+    padding: 10px;
   }
   
   /* Comment Boxes */
-  .commentBox {
+ .commentBox {
     background-color: #222;
-    padding: 0.8rem;
+    padding: 0.7rem 1rem;
     border-radius: 10px;
+    overflow-x: hidden;
+    margin-bottom: 0.7rem;
   }
+  
   
   /* Comment User */
   .commentUserId {
+    margin-bottom: 0.3rem;
+  }
+  .commentUserId a{
+
+    font-weight: bold;
     color: #ff416c;
   }
   

@@ -2,6 +2,7 @@ import React, { useState,useEffect} from 'react';
 import Cookies from 'js-cookie';
 import {redirect, useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import Comment from './Comment';
 import styles from './stylesheets/Home.module.css';
 import { Link } from 'react-router-dom';
 import { configDotenv } from 'dotenv';
@@ -108,14 +109,15 @@ function Home() {
     let user = decoded.name;
     let caption = currPost.caption;
     console.log(`${user} commented "${comment}" on post "${caption}"`);
-    document.getElementById('comment').value='';
-    
-    const res = await axios.put(`${import.meta.env.VITE_SERVER}/upload/updateComments`,{
+    let res;
+    if(comment){
+     res = await axios.put(`${import.meta.env.VITE_SERVER}/upload/updateComments`,{
       comment:comment,
       caption:caption,
       user:user,
-    });
+    });}
 
+    document.getElementById('comment').value='';
     if(res){
       setComments(res.comments);
     }
@@ -164,9 +166,7 @@ function Home() {
             <button className={styles.closeButton} onClick={removeCurrentUser}>close</button></div>
             <br />
             <img className={styles.postImageInfo} src={currPost.imageUrl}></img>
-            <p className={styles.postUserInfo}>by <button onClick={()=>{
-              navigate(`/user/${currPost.userId}`)
-            }}> {currPost.userId}</button></p>
+            <p className={styles.commentUserId}>by <Link to={`/user/${currPost.userId}`}>{currPost.userId}</Link></p>
             <p className={styles.tagInfo}>Tag:{currPost.tags}</p>
             <br />
             <button className={styles.like} onClick={()=>handleLike(currPost)}>♡ {currLikes}</button>
@@ -177,10 +177,7 @@ function Home() {
             <input type="text" name="comment" id="comment" className={styles.comment} onChange={handleCommentChange} />
             <button onClick={handleCommentPost}>Send</button>
             </div>
-            {comments && comments.map((comment,index)=><div key={index} className={styles.commentBox}>
-              <p className={styles.commentUserId}>{comment.userId}</p>
-              <p className={styles.commentText}>{comment.text}</p>
-              </div>
+            {comments && comments.map((comment,index)=><Comment key={index} user = {decoded.name} currPost = {currPost} comment={comment}/>
               )}
             <br />
           </div>
