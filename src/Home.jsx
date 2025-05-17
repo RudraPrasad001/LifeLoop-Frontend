@@ -137,13 +137,13 @@ function Home() {
     <div className={styles.container}>
       <div className={styles.titleLogout}>
         <div className={styles.profileDiv }>
-          <button onClick={()=>navigate(`/user/${decoded.name}`)} className={styles.like} >Profile</button>
+          <button onClick={()=>navigate(`/user/${decoded.name}`)} >Profile</button>
         </div>
         <div className={styles.title}>  
           <h1>Lifeloop</h1>
         </div>
         <div className={styles.logoutDiv}>
-          <button className={styles.like} onClick={logout}>Logout</button>
+          <button onClick={logout}>Logout</button>
         </div>
         </div>
       <p>welcome {decoded.name}</p>
@@ -169,7 +169,7 @@ function Home() {
             <p className={styles.commentUserId}>by <Link to={`/user/${currPost.userId}`}>{currPost.userId}</Link></p>
             <p className={styles.tagInfo}>Tag:{currPost.tags}</p>
             <br />
-            <button className={styles.like} onClick={()=>handleLike(currPost)}>♡ {currLikes}</button>
+            <button onClick={()=>handleLike(currPost)}>♡ {currLikes}</button>
          </div> 
          <div className={styles.commentSection}>
           <div className={styles.stickyDiv}>

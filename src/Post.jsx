@@ -48,8 +48,8 @@ function Post(props){
                     <img className={styles.postImage} src={post.imageUrl} onClick={()=>openPost(post)}></img>
                     <p className={styles.commentUserId}>by <Link to={`/user/${post.userId}`}>{post.userId}</Link></p>
                     <p className={styles.tag}>Tag:{post.tags}</p>
-                    <button className={styles.like} onClick={()=>handleLike(post)}>♡ {post.likes.length}</button>
-                    <button onClick={()=>openPost(post)} className={styles.like}>Comment</button>
+                    <button  onClick={()=>handleLike(post)}>♡ {post.likes.length}</button>
+                    <button onClick={()=>openPost(post)} >Comment</button>
         </div>
     )
 }

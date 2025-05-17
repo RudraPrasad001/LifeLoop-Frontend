@@ -1,11 +1,5 @@
 
-*{
-  
-  
-  background-size: cover;
-  background-repeat: no-repeat;
-  
-}
+
 .otpForm {
   z-index: 3;
   background-color: #171515;
@@ -57,7 +51,6 @@
 
 .submitBtn {
   padding: 12px;
-  background-color: #ff6b00;
   color: white;
   border: none;
   border-radius: 8px;
@@ -65,7 +58,6 @@
   font-weight: bold;
   font-size: 16px;
   width: 100%;
-  transition: background-color 0.3s;
 }
 
 .submitBtn:hover {
@@ -175,22 +167,6 @@ input:-webkit-autofill {
 
 
 
-.submitBtn {
-  background: linear-gradient(left to right, #ff416c, #ff4b2b);
-  color: #fff;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 14px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  
-}
-
-.submitBtn:hover {
-  transform: scale(1.05);
-}
 
 .responseMessage {
   text-align: center;
